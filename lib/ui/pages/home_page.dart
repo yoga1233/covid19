@@ -1,4 +1,6 @@
 import 'package:covid19/cubit/indo_cubit.dart';
+import 'package:covid19/cubit/prov_cubit.dart';
+import 'package:covid19/model/prov_model.dart';
 import 'package:covid19/shared/theme.dart';
 import 'package:covid19/ui/widgets/edu_card.dart';
 import 'package:covid19/ui/widgets/info_card.dart.dart';
@@ -19,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     context.read<IndoCubit>().fetchData();
+    context.read<ProvCubit>().getProv();
     super.initState();
   }
 
@@ -144,39 +147,15 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget kasusProvinsi() {
+    Widget kasusProvinsi(List<ProvModel> prov) {
       return Container(
         margin: const EdgeInsets.only(
           bottom: 30,
         ),
         child: Column(
-          children: const [
-            KasusProvCard(
-                kota: 'DKI JAKARTA',
-                positif: 1249253,
-                sembuh: 1233220,
-                dirawat: 752,
-                meninggal: 15281),
-            KasusProvCard(
-                kota: 'JAWA BARAT',
-                positif: 1249253,
-                sembuh: 1233220,
-                dirawat: 752,
-                meninggal: 15281),
-            KasusProvCard(
-                kota: 'JAWA TIMUR',
-                positif: 1249253,
-                sembuh: 1233220,
-                dirawat: 752,
-                meninggal: 15281),
-            KasusProvCard(
-                kota: 'JAWA TENGAH',
-                positif: 1249253,
-                sembuh: 1233220,
-                dirawat: 752,
-                meninggal: 15281),
-          ],
-        ),
+            children: prov.map((ProvModel prov) {
+          return KasusProvCard(prov);
+        }).toList()),
       );
     }
 
@@ -199,7 +178,16 @@ class _HomePageState extends State<HomePage> {
             infoCard(),
             kasusHari(),
             hotline(),
-            kasusProvinsi(),
+            BlocBuilder<ProvCubit, ProvState>(
+              builder: (context, state) {
+                if (state is ProvSuccess) {
+                  return kasusProvinsi(state.prov);
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ],
         ),
       );

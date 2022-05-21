@@ -1,22 +1,16 @@
+import 'package:covid19/model/prov_model.dart';
 import 'package:covid19/shared/theme.dart';
 import 'package:covid19/ui/widgets/status_card.dart';
 import 'package:covid19/ui/widgets/tittle_text.dart';
 import 'package:flutter/material.dart';
 
 class KasusProvCard extends StatelessWidget {
-  final String kota;
-  final int positif;
-  final int sembuh;
-  final int dirawat;
-  final int meninggal;
+  final ProvModel prov;
+
   const KasusProvCard(
-      {Key? key,
-      required this.kota,
-      required this.positif,
-      required this.sembuh,
-      required this.dirawat,
-      required this.meninggal})
-      : super(key: key);
+    this.prov, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +28,27 @@ class KasusProvCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TittleText(text: 'Prov $kota'),
+          TittleText(text: prov.provinsi),
           const SizedBox(
             height: 6,
           ),
           StatusCard(
-            total: positif,
+            total: prov.positif,
             color: yellowColor,
             kasus: 'Positif',
           ),
           StatusCard(
-            total: sembuh,
+            total: prov.sembuh,
             color: greenColor,
             kasus: 'Sembuh',
           ),
           StatusCard(
-            total: dirawat,
+            total: prov.dirawat,
             color: blueColor,
             kasus: 'Dirawat',
           ),
           StatusCard(
-            total: meninggal,
+            total: prov.meninggal,
             color: redColor,
             kasus: 'meninggal',
           ),

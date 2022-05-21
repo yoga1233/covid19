@@ -1,4 +1,5 @@
 import 'package:covid19/cubit/indo_cubit.dart';
+import 'package:covid19/cubit/prov_cubit.dart';
 import 'package:covid19/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => IndoCubit(),
         ),
+        BlocProvider(
+          create: (context) => ProvCubit(),
+        )
       ],
       child: const MaterialApp(
         title: 'Data Covid Indonesia',
