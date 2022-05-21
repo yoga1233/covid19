@@ -10,6 +10,7 @@ class SubTittleText extends StatelessWidget {
     return Text(
       text,
       style: greyTextStyle.copyWith(fontSize: 14, fontWeight: light),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
