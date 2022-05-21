@@ -27,7 +27,7 @@ class KasusHarian extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            SubTittleText(text: hasil[2] + ' - ' + hasil[1] + ' - ' + hasil[0]),
+            SubTittleText(text: hasil[2] + '  ' + hasil[1] + '  ' + hasil[0]),
           ],
         ),
         const SizedBox(
