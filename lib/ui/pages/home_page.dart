@@ -6,6 +6,8 @@ import 'package:covid19/ui/widgets/edu_card.dart';
 import 'package:covid19/ui/widgets/info_card.dart.dart';
 import 'package:covid19/ui/widgets/kasus_harian.dart';
 import 'package:covid19/ui/widgets/kasus_prov_card.dart';
+import 'package:covid19/ui/widgets/source_data.dart';
+import 'package:covid19/ui/widgets/subtittle_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,11 +20,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isVisible = true;
   @override
   void initState() {
     context.read<IndoCubit>().fetchData();
     context.read<ProvCubit>().getProv();
     super.initState();
+  }
+
+  void showToast() {
+    setState(() {
+      isVisible = !isVisible;
+    });
   }
 
   @override
@@ -193,17 +202,80 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget settingButton() {
+      return Align(
+          alignment: Alignment.topRight,
+          child: Container(
+            margin: const EdgeInsets.only(top: 10, right: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
+                  child: Image.asset(
+                    'assets/icons/icon_setting.png',
+                    color: isVisible ? greyColor : blackColor,
+                    width: 24,
+                  ),
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                Visibility(
+                  visible: isVisible ? false : true,
+                  child: Container(
+                    width: 210,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Aplikasi Covid-19\nDibuat oleh\nYoga Pamungkas',
+                          style: greyTextStyle.copyWith(),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SubTittleText(text: 'Source Data'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SourceData(
+                            tittle: 'Api', subTittle: 'Reynadi531'),
+                        const SourceData(tittle: 'Image', subTittle: 'Freepik'),
+                        const SourceData(tittle: 'Icon', subTittle: 'Flaticon'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ));
+    }
+
     return Scaffold(
       backgroundColor: whiteColor,
-      body: Stack(
-        children: [
-          image(),
-          ListView(
-            children: [
-              content(),
-            ],
-          ),
-        ],
+      body: SafeArea(
+        child: Stack(
+          children: [
+            image(),
+            ListView(
+              children: [
+                content(),
+              ],
+            ),
+            settingButton(),
+          ],
+        ),
       ),
     );
   }
