@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       child: const MaterialApp(
         title: 'Data Covid Indonesia',
+        debugShowCheckedModeBanner: false,
         home: HomePage(),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:covid19/ui/widgets/edu_card.dart';
 import 'package:covid19/ui/widgets/info_card.dart.dart';
 import 'package:covid19/ui/widgets/kasus_harian.dart';
 import 'package:covid19/ui/widgets/kasus_prov_card.dart';
+import 'package:covid19/ui/widgets/shimer_kasus.dart';
 import 'package:covid19/ui/widgets/source_data.dart';
 import 'package:covid19/ui/widgets/subtittle_text.dart';
 import 'package:flutter/material.dart';
@@ -128,9 +129,7 @@ class _HomePageState extends State<HomePage> {
               if (state is IndoSuccess) {
                 return KasusHarian(state.indo);
               }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const ShimerKasus();
             },
           ));
     }
@@ -216,10 +215,13 @@ class _HomePageState extends State<HomePage> {
                       isVisible = !isVisible;
                     });
                   },
-                  child: Image.asset(
-                    'assets/icons/icon_setting.png',
-                    color: isVisible ? greyColor : blackColor,
-                    width: 24,
+                  child: AnimatedContainer(
+                    duration: const Duration(seconds: 3),
+                    child: Image.asset(
+                      'assets/icons/icon_bantuan.png',
+                      color: isVisible ? greyColor : blackColor,
+                      width: 24,
+                    ),
                   ),
                 ),
                 const SizedBox(
