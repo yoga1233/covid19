@@ -14,6 +14,7 @@ class IndoLoading extends IndoState {}
 class IndoSuccess extends IndoState {
   final IndoModel indo;
   const IndoSuccess(this.indo);
+
   @override
   List<Object> get props => [indo];
 }

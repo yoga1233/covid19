@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:covid19/model/prov_model.dart';
-import 'package:covid19/services/prov_service.dart';
+import 'package:covid19/services/api_services.dart';
 import 'package:equatable/equatable.dart';
 
 part 'prov_state.dart';
@@ -11,7 +11,7 @@ class ProvCubit extends Cubit<ProvState> {
   void getProv() async {
     try {
       emit(ProvLoading());
-      List<ProvModel> prov = await ProvService().getData();
+      List<ProvModel> prov = await ApiService().getDataProv();
       emit(ProvSuccess(prov));
     } catch (e) {
       emit(ProvFailed(e.toString()));
