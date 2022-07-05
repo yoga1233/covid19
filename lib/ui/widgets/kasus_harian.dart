@@ -15,7 +15,7 @@ class KasusHarian extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String tanggal = indo.lastUpdate;
+    String tanggal = indo.lastUpdate!;
     var splitted = tanggal.substring(0, 10);
     var hasil = splitted.split('-');
 
@@ -34,22 +34,22 @@ class KasusHarian extends StatelessWidget {
           height: 6,
         ),
         StatusCard(
-          total: indo.positif,
+          total: indo.positif!,
           color: yellowColor,
           kasus: 'Positif',
         ),
         StatusCard(
-          total: indo.sembuh,
+          total: indo.sembuh!,
           color: greenColor,
           kasus: 'Sembuh',
         ),
         StatusCard(
-          total: indo.dirawat,
+          total: indo.dirawat!,
           color: blueColor,
           kasus: 'Dirawat',
         ),
         StatusCard(
-          total: indo.positif,
+          total: indo.positif!,
           color: redColor,
           kasus: 'meninggal',
         ),

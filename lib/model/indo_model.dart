@@ -1,19 +1,33 @@
-import 'package:equatable/equatable.dart';
+class IndoModel {
+  int? positif;
+  int? dirawat;
+  int? sembuh;
+  int? meninggal;
+  String? lastUpdate;
 
-class IndoModel extends Equatable {
-  final int positif;
-  final int sembuh;
-  final int dirawat;
-  final int meninggal;
-  final String lastUpdate;
+  IndoModel(
+      {this.positif,
+      this.dirawat,
+      this.sembuh,
+      this.meninggal,
+      this.lastUpdate});
 
-  const IndoModel(
-      {this.dirawat = 0,
-      this.meninggal = 0,
-      this.positif = 0,
-      this.sembuh = 0,
-      this.lastUpdate = ''});
+  /// Map data dari json ke model
+  IndoModel.fromJson(Map<String, dynamic> json) {
+    positif = json['positif'];
+    dirawat = json['dirawat'];
+    sembuh = json['sembuh'];
+    meninggal = json['meninggal'];
+    lastUpdate = json['lastUpdate'];
+  }
 
-  @override
-  List<Object?> get props => [dirawat, meninggal, positif, sembuh, lastUpdate];
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['positif'] = positif;
+    data['dirawat'] = dirawat;
+    data['sembuh'] = sembuh;
+    data['meninggal'] = meninggal;
+    data['lastUpdate'] = lastUpdate;
+    return data;
+  }
 }

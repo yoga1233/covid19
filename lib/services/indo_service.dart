@@ -8,17 +8,11 @@ class Service {
           .get('https://apicovid19indonesia-v2.vercel.app/api/indonesia');
 
       if (result.statusCode == 200) {
-        IndoModel indo = IndoModel(
-          dirawat: result.data['dirawat'],
-          meninggal: result.data['meninggal'],
-          positif: result.data['positif'],
-          sembuh: result.data['sembuh'],
-          lastUpdate: result.data['lastUpdate'],
-        );
+        IndoModel indo = IndoModel.fromJson(result.data);
 
         return indo;
       }
-      return const IndoModel();
+      return IndoModel();
     } catch (e) {
       rethrow;
     }
